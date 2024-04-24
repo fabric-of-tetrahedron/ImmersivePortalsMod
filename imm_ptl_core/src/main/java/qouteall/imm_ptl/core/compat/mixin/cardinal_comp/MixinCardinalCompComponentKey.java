@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import qouteall.imm_ptl.core.network.PacketRedirection;
 
-@Mixin(targets = "dev.onyxstudios.cca.api.v3.component.ComponentKey")
+@Mixin(value = ComponentKey.class)
 public class MixinCardinalCompComponentKey {
     // redirect the entity sync packet
     @Redirect(

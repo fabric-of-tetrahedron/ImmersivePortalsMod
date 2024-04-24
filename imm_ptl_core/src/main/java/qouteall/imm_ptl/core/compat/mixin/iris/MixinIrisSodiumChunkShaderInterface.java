@@ -42,8 +42,8 @@ public class MixinIrisSodiumChunkShaderInterface {
         require = 0
     )
     private void onInit(
-            int handle, ShaderBindingContextExt contextExt, SodiumTerrainPipeline pipeline,
-            ChunkShaderOptions options, boolean isShadowPass, BlendModeOverride blendModeOverride,
+            int handle, final ShaderBindingContextExt contextExt, SodiumTerrainPipeline pipeline,
+            ChunkShaderOptions options, boolean isTess, boolean isShadowPass, BlendModeOverride blendModeOverride,
             List<BufferBlendOverride> bufferOverrides, float alpha, CustomUniforms customUniforms,
             CallbackInfo ci
     ) {

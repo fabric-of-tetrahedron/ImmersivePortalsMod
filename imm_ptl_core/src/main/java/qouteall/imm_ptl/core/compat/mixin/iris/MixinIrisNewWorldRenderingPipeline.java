@@ -32,7 +32,7 @@ public class MixinIrisNewWorldRenderingPipeline implements IEIrisNewWorldRenderi
         method = "beginTranslucents",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/coderbot/iris/postprocess/CompositeRenderer;renderAll()V",
+            target = "Lnet/irisshaders/iris/pipeline/CompositeRenderer;renderAll()V",
             shift = At.Shift.AFTER
         )
     )
