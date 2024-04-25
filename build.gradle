@@ -9,6 +9,7 @@ plugins {
 //    id 'io.github.juuxel.loom-vineflower' version '1.11.0' // https://github.com/Juuxel/loom-vineflower
 
     id "me.modmuss50.mod-publish-plugin" version "0.3.5"
+//    id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
 }
 
 allprojects {
@@ -72,7 +73,16 @@ allprojects {
         // geckolib, for testing with portal gun
         maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 
-
+        maven {
+            name = "Valkyrien Skies Internal"
+            url = project.vs_maven_url ?: 'https://maven.valkyrienskies.org'
+            if (project.vs_maven_username && project.vs_maven_password) {
+                credentials {
+                    username = project.vs_maven_username
+                    password = project.vs_maven_password
+                }
+            }
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -114,6 +124,8 @@ allprojects {
         modCompileOnly("com.github.qouteall:GravityChanger:${gravity_changer_version}") {
             exclude(group: "net.fabricmc.fabric-api")
         }
+
+        modCompileOnly("org.valkyrienskies:valkyrienskies-120-fabric:${valkyrien_skies_version}")
 
         implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
         annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
@@ -235,6 +247,10 @@ dependencies {
 
             modImplementation name
         }
+    }
+
+    if (project.enable_valkyrien_skies.equals('true')) {
+        modLocalRuntime("org.valkyrienskies:valkyrienskies-120-fabric:${valkyrien_skies_version}")
     }
 
     testImplementation(platform('org.junit:junit-bom:5.10.0'))
