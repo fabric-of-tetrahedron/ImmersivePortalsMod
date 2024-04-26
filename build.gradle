@@ -4,6 +4,11 @@ plugins {
     id 'fabric-loom' version '1.6-SNAPSHOT' apply(false)
     // uses qouteall's fork of fabric loom, see settings.gradle
 
+    // Kotlin
+    id "org.jetbrains.kotlin.jvm" version "1.9.10" apply false
+    // Kotlin linter
+    id "org.jlleitschuh.gradle.ktlint" version "10.3.0"
+
     id 'maven-publish'
 
 //    id 'io.github.juuxel.loom-vineflower' version '1.11.0' // https://github.com/Juuxel/loom-vineflower
@@ -125,7 +130,8 @@ allprojects {
             exclude(group: "net.fabricmc.fabric-api")
         }
 
-        modCompileOnly("org.valkyrienskies:valkyrienskies-120-fabric:${valkyrien_skies_version}")
+        modCompileOnly("org.valkyrienskies:valkyrienskies-1201-fabric:${valkyrien_skies_version}")
+//        modCompileOnly("org.valkyrienskies.eureka:eureka-1201-common:${vs_eureka_version}")
 
         implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
         annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
@@ -250,7 +256,8 @@ dependencies {
     }
 
     if (project.enable_valkyrien_skies.equals('true')) {
-        modLocalRuntime("org.valkyrienskies:valkyrienskies-120-fabric:${valkyrien_skies_version}")
+        modLocalRuntime("org.valkyrienskies:valkyrienskies-1201-fabric:${valkyrien_skies_version}")
+//        modLocalRuntime("org.valkyrienskies.eureka:eureka-1201-common:${vs_eureka_version}")
     }
 
     testImplementation(platform('org.junit:junit-bom:5.10.0'))
