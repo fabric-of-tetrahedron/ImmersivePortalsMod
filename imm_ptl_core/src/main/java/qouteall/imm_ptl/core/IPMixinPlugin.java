@@ -21,8 +21,15 @@ public class IPMixinPlugin implements IMixinConfigPlugin {
     
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (FabricLoader.getInstance().isModLoaded("porting_lib")) {
+        FabricLoader fabricLoader = FabricLoader.getInstance();
+
+        if (fabricLoader.isModLoaded("porting_lib")) {
             if (mixinClassName.contains("MixinRenderTarget") || mixinClassName.contains("MixinMainTarget")) {
+                return false;
+            }
+        }
+        if (fabricLoader.isModLoaded("valkyrienskies")) {
+            if (mixinClassName.endsWith("common.container_gui.MixinContainer")) {
                 return false;
             }
         }

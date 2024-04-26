@@ -21,7 +21,8 @@
     "sodium.MixinSodiumRenderSectionManager",
     "sodium.MixinSodiumShaderLoader",
     "sodium.MixinSodiumViewport",
-    "sodium.MixinSodiumWorldRenderer"
+    "sodium.MixinSodiumWorldRenderer",
+    "valkyrienskies.MixinValkyrienSkiesContainer"
   ],
   "injectors": {
     "defaultRequire": 1

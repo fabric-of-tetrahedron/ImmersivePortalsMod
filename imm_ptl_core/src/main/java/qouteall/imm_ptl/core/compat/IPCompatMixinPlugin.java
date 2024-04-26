@@ -49,6 +49,11 @@ public class IPCompatMixinPlugin implements IMixinConfigPlugin {
             boolean cardinalCompLoaded = fabricLoader.isModLoaded("cardinal-components-base");
             return cardinalCompLoaded;
         }
+
+        if (mixinClassName.contains("ValkyrienSkies")) {
+            boolean valkyrienSkiesLoaded = fabricLoader.isModLoaded("valkyrienskies");
+            return valkyrienSkiesLoaded;
+        }
         
         return false;
     }

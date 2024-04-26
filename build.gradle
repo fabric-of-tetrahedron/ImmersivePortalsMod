@@ -115,6 +115,8 @@ allprojects {
         modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
             exclude(group: "net.fabricmc.fabric-api")
         }
+//        modImplementation("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
+
         modCompileOnly "maven.modrinth:modmenu:${modmenu_version}"
 
         modCompileOnly("com.github.Virtuoel:Pehkui:${pehkui_version}", {
@@ -131,7 +133,14 @@ allprojects {
         }
 
         modCompileOnly("org.valkyrienskies:valkyrienskies-1201-fabric:${valkyrien_skies_version}")
-//        modCompileOnly("org.valkyrienskies.eureka:eureka-1201-common:${vs_eureka_version}")
+//        modCompileOnly("org.valkyrienskies.eureka:eureka-1201-common:${vs_eureka_version}") {
+////            exclude module: "cloth-config"
+//        }
+
+//        compileOnly("org.valkyrienskies.core:api:${vs_core_version}")
+//        compileOnly("org.valkyrienskies.core:api-game:${vs_core_version}")
+//        compileOnly("org.valkyrienskies.core:util:${vs_core_version}")
+//        compileOnly("org.valkyrienskies.core:impl:${vs_core_version}")
 
         implementation("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
         annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
@@ -201,6 +210,7 @@ publishing {
 
 dependencies {
     include "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
+//    include("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
 
     include("com.github.llamalad7.mixinextras:mixinextras-fabric:${mixin_extras_version}")
 
@@ -255,10 +265,10 @@ dependencies {
         }
     }
 
-    if (project.enable_valkyrien_skies.equals('true')) {
-        modLocalRuntime("org.valkyrienskies:valkyrienskies-1201-fabric:${valkyrien_skies_version}")
+//    if (project.enable_valkyrien_skies.equals('true')) {
+//        modLocalRuntime("org.valkyrienskies:valkyrienskies-1201-fabric:${valkyrien_skies_version}")
 //        modLocalRuntime("org.valkyrienskies.eureka:eureka-1201-common:${vs_eureka_version}")
-    }
+//    }
 
     testImplementation(platform('org.junit:junit-bom:5.10.0'))
     testImplementation('org.junit.jupiter:junit-jupiter')
