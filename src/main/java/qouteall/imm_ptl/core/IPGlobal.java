@@ -70,7 +70,9 @@ public class IPGlobal {
     public static boolean cacheGlBuffer = true;
     
     public static boolean reducedPortalRendering = false;
-    
+
+    public static boolean doNotCullPortalsBehindPlayerInOrthographicProjection = true;
+
     public static boolean useSecondaryEntityVertexConsumer = true;
     
     public static boolean cullSectionsBehind = true;

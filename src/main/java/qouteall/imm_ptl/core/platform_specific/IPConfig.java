@@ -41,6 +41,8 @@ public class IPConfig implements ConfigData {
     @ConfigEntry.Category("client")
     public boolean reducedPortalRendering = false;
     @ConfigEntry.Category("client")
+    public boolean doNotCullPortalsBehindPlayerInOrthographicProjection = false;
+    @ConfigEntry.Category("client")
     public boolean netherPortalOverlay = false;
     @ConfigEntry.Category("client")
     public boolean enableNetherPortalEffect = true;
@@ -183,6 +185,7 @@ public class IPConfig implements ConfigData {
         IPGlobal.netherPortalMode = netherPortalMode;
         IPGlobal.endPortalMode = endPortalMode;
         IPGlobal.reducedPortalRendering = reducedPortalRendering;
+        IPGlobal.doNotCullPortalsBehindPlayerInOrthographicProjection = doNotCullPortalsBehindPlayerInOrthographicProjection;
         IPGlobal.offsetOcclusionQuery = visibilityPrediction;
         IPGlobal.netherPortalOverlay = netherPortalOverlay;
         IPGlobal.scaleLimit = scaleLimit;
