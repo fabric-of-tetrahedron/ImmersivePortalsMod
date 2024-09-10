@@ -123,73 +123,90 @@ public abstract class PortalRenderer {
     }
 
     private static boolean shouldSkipRenderingPortal(Portal portal, Supplier<Frustum> frustumSupplier) {
+//        System.out.println("开始检查是否应跳过渲染传送门: " + portal);
+
         // 检查传送门是否有效
         if (!portal.isPortalValid()) {
+//            System.out.println("传送门无效，跳过渲染");
             return true;
         }
 
         // 如果最大传送门层数为0，则强制渲染不可见的传送门
         // 否则，跳过不可见的传送门
         if (!portal.isVisible() && IPGlobal.maxPortalLayer != 0) {
+//            System.out.println("传送门不可见且最大层数不为0，跳过渲染");
             return true;
         }
 
         // 检查是否已达到传送门渲染数量限制
         if (RenderStates.getRenderedPortalNum() >= IPGlobal.portalRenderLimit) {
+//            System.out.println("已达到传送门渲染数量限制，跳过渲染");
             return true;
         }
 
         // 获取经过等距调整的相机位置
         Vec3 cameraPos = TransformationManager.getIsometricAdjustedCameraPos();
+//        System.out.println("调整后的相机位置: " + cameraPos);
 
         // 检查传送门是否大致可见
-        if (!IPGlobal.doNotCullPortalsBehindPlayerInOrthographicProjection) {
-            if (!portal.isRoughlyVisibleTo(cameraPos)) {
-                return true;
-            }
+        if (!portal.isRoughlyVisibleTo(cameraPos)) {
+//            System.out.println("传送门大致不可见，跳过渲染");
+            if (!IPGlobal.doNotCullPortalsBehindPlayerInOrthographicProjection) return true;
         }
 
         // 处理嵌套传送门的情况
         if (PortalRendering.isRendering()) {
             Portal outerPortal = PortalRendering.getRenderingPortal();
+//            System.out.println("正在渲染嵌套传送门，外层传送门: " + outerPortal);
 
             // 检查当前传送门是否可以在外层传送门中渲染
             if (outerPortal.cannotRenderInMe(portal)) {
+//                System.out.println("当前传送门不能在外层传送门中渲染，跳过渲染");
                 return true;
             }
         }
 
         // 计算相机到传送门最近点的距离
         double distance = portal.getDistanceToNearestPointInPortal(cameraPos);
+//        System.out.println("相机到传送门最近点的距离: " + distance);
+
         // 检查是否超出渲染范围
         if (distance > getRenderRange()) {
+//            System.out.println("传送门超出渲染范围，跳过渲染");
             return true;
         }
 
         // 执行早期视锥体剔除
         if (IPCGlobal.earlyFrustumCullingPortal) {
+//            System.out.println("执行早期视锥体剔除");
             // 当传送门非常接近时，视锥体剔除不起作用
             if (distance > 0.1) {
                 Frustum frustum = frustumSupplier.get();
                 // 检查传送门的边界框是否在视锥体内
                 if (!frustum.isVisible(portal.getThinBoundingBox())) {
-                    return true;
+                    System.out.println("传送门不在视锥体内，跳过渲染");
+//                    if (!IPGlobal.doNotCullPortalsBehindPlayerInOrthographicProjection)
+                        return true;
+
                 }
             }
         }
 
         // 检查是否为无效的递归渲染
         if (PortalRendering.isInvalidRecursionRendering(portal)) {
+//            System.out.println("检测到无效的递归渲染，跳过渲染");
             return true;
         }
 
         // 执行自定义的传送门渲染谓词测试
         boolean predicateTest = PORTAL_RENDERING_PREDICATE.invoker().test(portal);
         if (!predicateTest) {
+//            System.out.println("自定义传送门渲染谓词测试失败，跳过渲染");
             return true;
         }
 
         // 如果所有检查都通过，则不跳过渲染
+//        System.out.println("所有检查通过，将渲染传送门");
         return false;
     }
 
